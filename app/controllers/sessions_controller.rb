@@ -3,15 +3,19 @@ class SessionsController < ApplicationController
     end
 
     def create
-       @user = User.new(user_params)
-       if  @user.save
-           session[:id] = @user.id
-           redirect_to "/events/index"
-       else
-           flash[:errors] = @user.errors.full_messages
-           redirect_to "/sessions/new"
+        if user_params[:password] != params[:confirmpw]
+            flash[:errors] = ["Passwords do not match"]
+            redirect_to "/sessions/new"
+        else
+           @user = User.new(user_params)
+           if  @user.save
+               session[:id] = @user.id
+               redirect_to "/events/index"
+           else
+               flash[:errors] = @user.errors.full_messages
+               redirect_to "/sessions/new"
+           end
        end
-
    end
 
    def login

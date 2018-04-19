@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
     root 'sessions#new'
 
     post 'login' => "sessions#login"
@@ -19,7 +18,15 @@ Rails.application.routes.draw do
 
     post 'events' => "events#create"
 
+    get 'events/:id/edit' => 'events#edit'
+
+    patch 'events/:id' => 'events#update'
+
+    delete 'events/:id' => 'events#destroy'
+
     get 'events/join/:id' => "events#join"
+
+    get 'events/cancel/:id'=> 'events#cancel'
 
     post 'messages' => "messages#create"
 

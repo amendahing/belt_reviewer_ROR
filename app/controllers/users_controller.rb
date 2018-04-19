@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(session[:id])
-        @user.update(edit_params)
+        @user.fname = params[:fname]
+        @user.lname = params[:lname]
+        @user.email = params[:email]
+        @user.city = params[:city]
+        @user.state = params[:state]
         if @user.save
             redirect_to "/events/index"
         else
@@ -14,10 +18,7 @@ class UsersController < ApplicationController
         end
     end
 
-    private
-        def edit_params
-            params.require(:edit).permit(:fname, :lname, :email, :city, :state)
-        end
+
 
 
 end
