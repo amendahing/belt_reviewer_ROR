@@ -1,0 +1,76 @@
+<h1>Welcome, <%= @user.fname %></h1>
+<a href="#">Edit Profile</a>
+<a href="/sessions/<%= @user.id %>" data-method="delete">Log Out</a>
+
+<p>Here are some of the events at your state:</p>
+
+
+<table style="width:90%; text-align: center">
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Host</th>
+        <th>Action</th>
+    </tr>
+
+    <%@instate.each do |event|%>
+    <tr>
+        <td><a href="/events/<%=event.id%>"><%= event.name %></a></td>
+        <td> <%=event.date%> </td>
+        <td> <%=event.city%></td>
+        <td><%=event.date%></td>
+        <td> XXXX</td>
+    </tr>
+    <%end%>
+    </table>
+
+<p>Here are events from other states:</p>
+
+<table style="width:90%; text-align: center">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Location</th>
+    <th>Host</th>
+    <th>Action</th>
+  </tr>
+
+  <% @events.each do |event| %>
+  <tr>
+    <td><a href="/events/<%=event.id%>"><%= event.name %></a></td>
+    <td><%= event.date %></td>
+    <td><%= event.city %>, <%= event.state %></td>
+    <td><%= event.user.fname %></td>
+    <td><a href="/events/join/<%=event.id%>">Join</a></td>
+  </tr>
+ <% end %>
+
+</table>
+
+<h1>Add Event</h1>
+
+<% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+<% end %>
+
+
+<form action="/events" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    Name: <input type="text" name="name">
+    <br><br>
+    Date: <input type="date" name="date">
+    <br><br>
+    Location: <input type="text" name="city">
+    <br><br>
+    <select name="state">
+        <option value="ca">CA</option>
+        <option value="wa">WA</option>
+        <option value="tx">TX</option>
+        <option value="ny">NY</option>
+    </select>
+    <input type='submit' value='Add Event'>
+</form>

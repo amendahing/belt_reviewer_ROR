@@ -1,0 +1,54 @@
+<a href="/events/index">Dashboard</a>
+<a href="/sessions/<%= @user.id %>" data-method="delete">Log Out</a>
+
+<h1> <%= @event.name %> </h1>
+<h2>Host: <%= @event.user.fname %> </h2>
+<h2>Date: <%= @event.date %> </h2>
+<h2>Location: <%= @event.city %>  <%= @event.state %></h2>
+<h2># Attendees: <%= @count %></h2>
+
+<hr>
+
+<div class="block" style="display: inline-block; width: 400px; vertical-align:top">
+    <table style="width:60%; text-align: center">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>State</th>
+      </tr>
+      <% @attendees.each do |attendee| %>
+      <tr>
+        <td><%= attendee.fname %></td>
+        <td><%= attendee.city %></td>
+        <td><%= attendee.state %></td>
+      </tr>
+     <% end %>
+    </table>
+
+</div>
+
+<div class="block" style="display: inline-block; width: 550px; vertical-align:top">
+    <h2>Discussion Board:</h2>
+
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |e| %>
+        <%= e %>
+      <% end %>
+    <% end %>
+
+    <div id="messages" style="width: 300px; border: black solid 1px; height: 200px; overflow: scroll">
+        <% @messages.each do |message|%>
+        <p> <%= message.user.fname %> says: <%= message.content %> </p>
+        <% end %>
+    </div>
+    <br>
+
+    <form action="/messages" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="text" name="content">
+        <input type="hidden" name="event" value="<%= @event.id %>">
+
+        <input type='submit' value='Submit Message'>
+    </form>
+
+</div>

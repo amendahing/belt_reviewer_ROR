@@ -1,0 +1,45 @@
+<h1>Welcome!</h1>
+
+<% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+<% end %>
+
+<div class="block" style="display:inline-block; width: 30%; border: black solid 1px; margin-right: 250px">
+    <form action="/sessions" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        First Name:<input type="text" name="user[fname]">
+        <br><br>
+        Last Name: <input type="text" name="user[lname]">
+        <br><br>
+        Email: <input type="text" name="user[email]">
+        <br><br>
+        Location: <input type="text" name="user[city]">
+        <select name="user[state]">
+            <option value="ca">CA</option>
+            <option value="wa">WA</option>
+            <option value="tx">TX</option>
+            <option value="ny">NY</option>
+        </select>
+        <br><br>
+        Password: <input type="password" name="user[password]">
+        <br><br>
+        Confirm Password<input type="password" name="confirmpw">
+        <br><br>
+        <input type='submit' value='Register'>
+    </form>
+</div>
+
+<div class="block" style="display:inline-block; width: 30%; border: black solid 1px; vertical-align:top">
+    <form action="/login" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        Email: <input type="text" name="login_email">
+        <br><br>
+        Password: <input type="password" name="login_password">
+        <br><br>
+        <input type='submit' value='Login'>
+    </form>
+</div>
