@@ -1,5 +1,5 @@
 <h1>Welcome, <%= @user.fname %></h1>
-<a href="#">Edit Profile</a>
+<a href="/users/<%= @user.id %>/edit">Edit Profile</a>
 <a href="/sessions/<%= @user.id %>" data-method="delete">Log Out</a>
 
 <p>Here are some of the events at your state:</p>
