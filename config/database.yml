@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: v2_beltreviewer_production
-  username: v2_beltreviewer
+  username: ubuntu
   password: <%= ENV['V2_BELTREVIEWER_DATABASE_PASSWORD'] %>
